@@ -8,6 +8,15 @@ provider:
   runtime: nodejs14.x
 
 functions:
+  sendResponse:
+    handler: api/index.sendResponse
+    events:
+      -httpApi:
+        path: api/results
+        method: post
+        request: 
+          schemas:
+            application/json: ${file(./schemas/sendResponse.json)}
   api:
     handler: index.handler
     events:

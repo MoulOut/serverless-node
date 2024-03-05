@@ -5,21 +5,24 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
 
 functions:
   sendResponse:
     handler: api/index.sendResponse
     events:
-      -httpApi:
-        path: /api/results
-        method: post
-        request: 
-          schemas:
-            application/json: ${file(./schemas/sendResponse.json)}
+      - httpApi:
+          path: /api/results
+          method: post
+          request:
+            schemas:
+              application/json: ${file(./schemas/sendResponse.json)}
   getResult:
-    hander: api/index.getResult
+    handler: api/index.getResult
     events:
-     -httpApi:
-        path: /api/result/{id}
-        method: get
+      - httpApi:
+          path: /api/result/{id}
+          method: get
+
+plugins:
+  - serverless-offline

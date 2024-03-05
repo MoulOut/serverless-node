@@ -1,4 +1,10 @@
 ### Node
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
 # Logs
 logs
 *.log
@@ -173,7 +179,8 @@ tags
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

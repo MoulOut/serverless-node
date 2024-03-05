@@ -12,14 +12,14 @@ functions:
     handler: api/index.sendResponse
     events:
       -httpApi:
-        path: api/results
+        path: /api/results
         method: post
         request: 
           schemas:
             application/json: ${file(./schemas/sendResponse.json)}
-  api:
-    handler: index.handler
+  getResult:
+    hander: api/index.getResult
     events:
-      - httpApi:
-          path: /
-          method: get
+     -httpApi:
+        path: /api/result/{id}
+        method: get

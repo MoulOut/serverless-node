@@ -3,9 +3,18 @@ app: serverless
 service: aws-node-http-api-project
 frameworkVersion: '3'
 
+params:
+  default:
+    dbName: serverless
+  dev:
+  prod:
+
 provider:
   name: aws
   runtime: nodejs16.x
+  environment:
+    MONGODB_CONNECTIONSTRING: ${param:connectionString}
+    MONGOGB_DB_NAME: ${param:dbName}
 
 functions:
   sendResponse:
@@ -14,9 +23,9 @@ functions:
       - httpApi:
           path: /api/results
           method: post
-          request:
-            schemas:
-              application/json: ${file(./schemas/sendResponse.json)}
+          # request:
+          #   schemas:
+          #     application/json: ${file(./schemas/sendResponse.json)}
   getResult:
     handler: api/index.getResult
     events:

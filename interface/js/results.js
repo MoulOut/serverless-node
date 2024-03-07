@@ -13,13 +13,18 @@ const bail = () => {
 if (!resultId) bail();
 
 fetch(
-  `https://e6kbvw80vh.execute-api.us-east-1.amazonaws.com/api/results/${resultId}`
+  `https://e6kbvw80vh.execute-api.us-east-1.amazonaws.com/api/results/${resultId}`,
+  {
+    headers: {
+      authorization: `Bearer ${window.localStorage.getItem('token')}`,
+    },
+  }
 )
   .then((r) => {
     if (!r.ok) bail();
     return r.json();
   })
-  .then(({ result }) => {
+  .then((result) => {
     document.getElementById('student-name').innerText = result.name;
     document.getElementById('correct').innerText = result.totalCorrectAnswers;
   })

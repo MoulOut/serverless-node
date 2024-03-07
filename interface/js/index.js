@@ -29,13 +29,17 @@ $('form').addEventListener('submit', async (e) => {
     data.answers[Number(answer.name) - 1] = Number(answer.value);
   });
 
-  const response = await fetch('https://e6kbvw80vh.execute-api.us-east-1.amazonaws.com/api/results', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const response = await fetch(
+    'https://e6kbvw80vh.execute-api.us-east-1.amazonaws.com/api/results',
+    {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+      },
+    }
+  );
 
   if (response.ok) {
     const { __hypermedia } = await response.json();

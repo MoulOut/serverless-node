@@ -7,14 +7,21 @@ params:
   default:
     dbName: serverless
   dev:
+    connectionString: mongodb+srv://admin:admin123@cluster0.qadqeta.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/${self:params.default.dbName}
+    salt: moAoNNUw5mjylyTcrRJUBtwfhpSQWAvb
+    jwtSecret: lS3wWpLBUKxsLCcxPc4khQ2t2wf3dVbWapIYItfmhgPePUiuyoOy53IxTqTWoF5a
   prod:
 
 provider:
+  httpApi:
+    cors: true
   name: aws
   runtime: nodejs16.x
   environment:
     MONGODB_CONNECTIONSTRING: ${param:connectionString}
     MONGOGB_DB_NAME: ${param:dbName}
+    SALT: ${param:salt}
+    JWT_SECRET: ${param:jwtSecret}
 
 functions:
   sendResponse:
@@ -32,6 +39,15 @@ functions:
       - httpApi:
           path: /api/result/{id}
           method: get
+  login:
+    handler: api/index.login
+    events:
+      - httpApi:
+          path: /api/login
+          method: post
+          # request:
+          #   schemas:
+          #     application/json: ${file(./schemas/login.json)}
 
 plugins:
   - serverless-offline

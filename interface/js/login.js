@@ -6,7 +6,7 @@ document.querySelector('#submit').addEventListener('click', async (e) => {
   if (!username || !password) alert('Por favor, preencha todos os campos');
 
   const response = await fetch(
-    'https://kf5oys9zn9.execute-api.us-east-1.amazonaws.com/api/login',
+    'https://e6kbvw80vh.execute-api.us-east-1.amazonaws.com/api/login',
     {
       method: 'POST',
       body: JSON.stringify({ username, password }),
